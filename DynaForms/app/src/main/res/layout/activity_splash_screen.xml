@@ -6,10 +6,9 @@
     tools:context=".utilities.SplashScreenActivity">
 
     <ImageView
-        android:layout_centerInParent="true"
+        android:id="@+id/splash_image"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/syml_logo"
-        />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

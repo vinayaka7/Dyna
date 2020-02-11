@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.dynaforms.R;
 import com.dynaforms.view.ForamsActivity;
 import com.dynaforms.view.MainActivity;
@@ -27,6 +29,9 @@ public class SplashScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        ImageView imageView = findViewById(R.id.splash_image);
+        AppUtils.loadImageFromApi(imageView, R.drawable.syml_logo);
         userDetails = new HashMap<>();
 //        userDetails = session.getUserDetails();
         prfs = getSharedPreferences("USERLOGIN", Context.MODE_PRIVATE);
