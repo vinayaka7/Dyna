@@ -61,7 +61,18 @@ public class RegisterFormAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     R.layout.child_row_drop_down, parent, false);
             vh = new DropDownViewHolder(binding);
 
-        }  else {
+        }
+        else if (viewType == AppConstants.RowTypes.MultiSelect.getValue()) {
+            ChildRowDateTimeBinding binding = DataBindingUtil.inflate(layoutInflater,
+                    R.layout.child_row_date_time, parent, false);
+            vh = new DateTimeViewHolder(binding);
+
+        }else if (viewType == AppConstants.RowTypes.SingleSelect.getValue()) {
+            ChildRowDateTimeBinding binding = DataBindingUtil.inflate(layoutInflater,
+                    R.layout.child_row_date_time, parent, false);
+            vh = new DateTimeViewHolder(binding);
+
+        }else {
             ChildRowPlainTextBinding binding = DataBindingUtil.inflate(layoutInflater,
                     R.layout.child_row_plain_text, parent, false);
             vh = new PlainTextViewHolder(binding);
@@ -81,6 +92,10 @@ public class RegisterFormAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             viewType = AppConstants.RowTypes.DateTime.getValue();
         } else if (type.equals(AppConstants.RowTypes.DropDown.name())) {
             viewType = AppConstants.RowTypes.DropDown.getValue();
+        }else if (type.equals(AppConstants.RowTypes.MultiSelect.name())) {
+            viewType = AppConstants.RowTypes.MultiSelect.getValue();
+        }else if (type.equals(AppConstants.RowTypes.SingleSelect.name())) {
+            viewType = AppConstants.RowTypes.SingleSelect.getValue();
         } else {
             viewType = AppConstants.RowTypes.PlainText.getValue();
         }
@@ -98,7 +113,11 @@ public class RegisterFormAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((DateTimeViewHolder) holder).bind(childList, position);
         } else if (holder.getItemViewType() == AppConstants.RowTypes.DropDown.getValue()) {
             ((DropDownViewHolder) holder).bind(childList, position);
-        } else {
+        } else if (holder.getItemViewType() == AppConstants.RowTypes.MultiSelect.getValue()) {
+            ((DateTimeViewHolder) holder).bind(childList, position);
+        } else if (holder.getItemViewType() == AppConstants.RowTypes.SingleSelect.getValue()) {
+            ((DateTimeViewHolder) holder).bind(childList, position);
+        }else {
             ((PlainTextViewHolder) holder).bind(childList, position);
         }
     }
@@ -125,6 +144,18 @@ public class RegisterFormAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private final ChildRowTextAreaBinding binding;
 
         public TextAreaViewHolder(ChildRowTextAreaBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bind(final ChildList clinicalFindingsBean, int position) {
+            binding.tvName.setText(clinicalFindingsBean.getName());
+        }
+    }
+    public class SingleSelectViewHolder extends RecyclerView.ViewHolder {
+        private final ChildRowTextAreaBinding binding;
+
+        public SingleSelectViewHolder(ChildRowTextAreaBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

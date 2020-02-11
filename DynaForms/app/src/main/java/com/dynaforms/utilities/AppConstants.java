@@ -9,7 +9,9 @@ public interface AppConstants {
         DateTime(1),
         CheckBox(2),
         DropDown(3),
-        PlainText(4);
+        PlainText(4),
+        MultiSelect(5),
+        SingleSelect(6);
 
         private final int value;
 
