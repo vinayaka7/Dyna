@@ -72,7 +72,9 @@ public class FormRegisterActivity extends AppCompatActivity {
             AppUtils.shortToast(FormRegisterActivity.this, viewType);
 
             listClickPos = clickPosition;
-            showDatePickerDialog();
+            if (childLists.get(listClickPos).getType().equals(AppConstants.RowTypes.DateTime.name())) {
+                showDatePickerDialog();
+            }
         }
     };
 

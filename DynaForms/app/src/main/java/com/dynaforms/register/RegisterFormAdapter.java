@@ -72,13 +72,14 @@ public class RegisterFormAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemViewType(int position) {
         int viewType;
-        if (childDataList.get(position).getType().equals(AppConstants.RowTypes.TextArea.name())) {
+        String type = childDataList.get(position).getType();
+        if (type.equals(AppConstants.RowTypes.TextArea.name())) {
             viewType = AppConstants.RowTypes.TextArea.getValue();
-        } else if (childDataList.get(position).getType().equals(AppConstants.RowTypes.CheckBox.name())) {
+        } else if (type.equals(AppConstants.RowTypes.CheckBox.name())) {
             viewType = AppConstants.RowTypes.CheckBox.getValue();
-        } else if (childDataList.get(position).getType().equals(AppConstants.RowTypes.DateTime.name())) {
+        } else if (type.equals(AppConstants.RowTypes.DateTime.name())) {
             viewType = AppConstants.RowTypes.DateTime.getValue();
-        } else if (childDataList.get(position).getType().equals(AppConstants.RowTypes.DropDown.name())) {
+        } else if (type.equals(AppConstants.RowTypes.DropDown.name())) {
             viewType = AppConstants.RowTypes.DropDown.getValue();
         } else {
             viewType = AppConstants.RowTypes.PlainText.getValue();
