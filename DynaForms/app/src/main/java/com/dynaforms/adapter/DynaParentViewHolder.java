@@ -22,8 +22,10 @@ public class DynaParentViewHolder extends ParentViewHolder {
             public void onClick(View v) {
                 if (isExpanded()) {
                     collapseView();
+                    mArrowExpandImageView.setBackgroundResource(R.drawable.plus_icon);
                 } else {
                     expandView();
+                    mArrowExpandImageView.setBackgroundResource(R.drawable.minus_icon);
                 }
             }
         });

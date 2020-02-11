@@ -2,14 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <TextView
+        android:layout_weight="1"
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:drawableRight="@drawable/forward_icon"
         android:textColor="@android:color/black"
         android:textSize="18sp"/>
+    <ImageView
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/arrow_expand_imageview"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/forward_icon" />
 </LinearLayout>
