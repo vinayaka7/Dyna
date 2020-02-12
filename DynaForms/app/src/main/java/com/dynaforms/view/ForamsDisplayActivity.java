@@ -17,6 +17,9 @@ import com.dynaforms.itemclicklistners.RecyclerClickListener;
 import com.dynaforms.model.BaseFormModel;
 import com.dynaforms.model.ChildList;
 import com.dynaforms.model.Section;
+import com.dynaforms.register.IDateSelectionCallback;
+import com.dynaforms.utilities.AppConstants;
+import com.dynaforms.utilities.AppUtils;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -31,6 +34,8 @@ import static com.dynaforms.utilities.AppConstants.DataExtraUtils.SECTION_NAME;
 public class ForamsDisplayActivity extends AppCompatActivity {
     private BaseFormModel baseFormModel;
     private SectionAdapter sectionAdapter;
+    private int parentSelectedPosition;
+    private int childSelectedPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +101,8 @@ public class ForamsDisplayActivity extends AppCompatActivity {
     }
 
     RecyclerClickListener recyclerClickListener = new RecyclerClickListener() {
+
+
         @Override
         public void onItemClick(int parentPos, int childPos) {
             try {
@@ -108,6 +115,30 @@ public class ForamsDisplayActivity extends AppCompatActivity {
                 startActivity(intent);
             } catch (Exception e) {
             }
+        }
+
+        @Override
+        public void onClickView(int parentPosition, int childPos) {
+            parentSelectedPosition = parentPosition;
+            childSelectedPos = childPos;
+            Section section = baseFormModel.getForm().getSections().get(parentPosition);
+            ChildList childList = section.getChildList().get(childPos);
+            if (childList.getType().equals(AppConstants.RowTypes.DateTime.name())) {
+                AppUtils.showDatePickerDialog(ForamsDisplayActivity.this, iDateSelectionCallback);
+            }
+
+
+        }
+    };
+
+    IDateSelectionCallback iDateSelectionCallback = new IDateSelectionCallback() {
+        @Override
+        public void onSelectDate(String selectedDate) {
+            Section section = baseFormModel.getForm().getSections().get(parentSelectedPosition);
+            ChildList childList = section.getChildList().get(childSelectedPos);
+
+            childList.setDisplayValue(selectedDate);
+            sectionAdapter.notifyChildChanged(parentSelectedPosition, childSelectedPos);
         }
     };
 

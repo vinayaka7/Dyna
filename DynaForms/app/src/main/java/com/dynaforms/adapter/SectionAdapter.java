@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 
 import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
 import com.dynaforms.R;
+import com.dynaforms.databinding.ChildRowPlainTextBinding;
+import com.dynaforms.databinding.DynaRowChildBinding;
 import com.dynaforms.itemclicklistners.RecyclerClickListener;
 import com.dynaforms.model.ChildList;
 import com.dynaforms.model.Section;
@@ -34,8 +37,9 @@ public class SectionAdapter extends ExpandableRecyclerAdapter<Section, ChildList
 
     @Override
     public DynaChildViewHolder onCreateChildViewHolder(@NonNull ViewGroup childViewGroup, int viewType) {
-        View ingredientView = mInflater.inflate(R.layout.dyna_row_child, childViewGroup, false);
-        DynaChildViewHolder dynaChildViewHolder = new DynaChildViewHolder(ingredientView);
+        DynaRowChildBinding binding = DataBindingUtil.inflate(mInflater,
+                R.layout.dyna_row_child, childViewGroup, false);
+        DynaChildViewHolder dynaChildViewHolder = new DynaChildViewHolder(binding);
         dynaChildViewHolder.setRecyclerClickListener(recyclerClickListener);
 
         return dynaChildViewHolder;

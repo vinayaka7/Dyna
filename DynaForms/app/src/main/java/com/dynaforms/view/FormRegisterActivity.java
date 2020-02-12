@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.dynaforms.R;
 import com.dynaforms.model.ChildList;
+import com.dynaforms.register.IDateSelectionCallback;
 import com.dynaforms.register.IStatusClickCallback;
 import com.dynaforms.register.RegisterFormAdapter;
 import com.dynaforms.utilities.AppConstants;
@@ -77,7 +78,7 @@ public class FormRegisterActivity extends AppCompatActivity {
             listClickPos = clickPosition;
             ChildList childList = childLists.get(listClickPos);
             if (childList.getType().equals(AppConstants.RowTypes.DateTime.name())) {
-                showDatePickerDialog();
+                AppUtils.showDatePickerDialog(FormRegisterActivity.this, iDateSelectionCallback);
             } else if (childList.getType().equals(AppConstants.RowTypes.MultiSelect.name())) {
                 //todo showDMultiselectionDialog();
                 displayMultiSelect(childList.getOptions());
@@ -89,70 +90,25 @@ public class FormRegisterActivity extends AppCompatActivity {
         }
     };
 
-    private void showDatePickerDialog() {
-        DateFormat inputFormat = new SimpleDateFormat(
-                "EEE MMM dd HH:mm:ss zzz yyyy");
-        String currentDateandTime = inputFormat.format(new Date());
-        Date date = null;
-        try {
-            date = inputFormat.parse(currentDateandTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
+    IDateSelectionCallback iDateSelectionCallback = new IDateSelectionCallback() {
+        @Override
+        public void onSelectDate(String selectedDate) {
+            childLists.get(listClickPos).setDisplayValue(selectedDate);
+            registerFormAdapter.notifyItemChanged(listClickPos);
         }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.MINUTE, 75);
-        new SingleDateAndTimePickerDialog.Builder(FormRegisterActivity.this)
-                .defaultDate(calendar.getTime())
-                .minDateRange(calendar.getTime())
-                .mustBeOnFuture()
-                .mainColor(getResources().getColor(R.color.colorPrimary))
-                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
-                    @Override
-                    public void onDisplayed(SingleDateAndTimePicker picker) {
+    };
 
-                    }
-                })
-                .title("Select Date and Time")
-                .listener(new SingleDateAndTimePickerDialog.Listener() {
-                    @Override
-                    public void onDateSelected(Date date2) {
-                        String input = date2.toString();
-                        DateFormat inputFormat = new SimpleDateFormat(
-                                "EEE MMM dd HH:mm:ss zzz yyyy");
-                        try {
-                            Date dates = inputFormat.parse(input);
-                            DateFormat outputFormat = new SimpleDateFormat("dd-mmm-yyyy hh:mm:ss.s",
-                                    Locale.ENGLISH);
 
-                            DateFormat outputFormat1 = new SimpleDateFormat("HH:mm",
-                                    Locale.ENGLISH);
-
-                            DateFormat outputFormat2 = new SimpleDateFormat("dd/MM/yyyy",
-                                    Locale.ENGLISH);
-                            String output = outputFormat.format(dates);
-                            String output1 = outputFormat1.format(dates);
-                            String output2 = outputFormat2.format(dates);
-
-                            childLists.get(listClickPos).setDisplayValue(output);
-                            registerFormAdapter.notifyItemChanged(listClickPos);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).display();
-    }
 
     public void displayMultiSelect(List<String> options) {
         final AlertDialog alertDialog = new AlertDialog.Builder(FormRegisterActivity.this).create(); //Read Update
         LayoutInflater adbInflater = this.getLayoutInflater();
         View checkboxLayout = adbInflater.inflate(R.layout.checkboxlayout, null);
-        LinearLayout my_layout = (LinearLayout)checkboxLayout.findViewById(R.id.single_layout);
+        LinearLayout my_layout = (LinearLayout) checkboxLayout.findViewById(R.id.single_layout);
         alertDialog.setView(checkboxLayout);
         final String[] selectedStrings = {""};
-        for (int i = 0; i < options.size(); i++)
-        {
-            TableRow row =new TableRow(this);
+        for (int i = 0; i < options.size(); i++) {
+            TableRow row = new TableRow(this);
             row.setId(i);
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             final CheckBox checkBox = new CheckBox(this);
@@ -166,9 +122,10 @@ public class FormRegisterActivity extends AppCompatActivity {
                                                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                                         if (isChecked) {
                                                             selectedStrings[0] = checkBox.getText().toString();
-                                                        }else{
-                                                            selectedStrings[0]= checkBox.getText().toString();
-                                                        }                     }
+                                                        } else {
+                                                            selectedStrings[0] = checkBox.getText().toString();
+                                                        }
+                                                    }
                                                 }
             );
         }
@@ -191,18 +148,17 @@ public class FormRegisterActivity extends AppCompatActivity {
         });
         alertDialog.show();
     }
+
     public void displaySingleSelect(final List<String> options) {
         final AlertDialog alertDialog = new AlertDialog.Builder(FormRegisterActivity.this).create(); //Read Update
         LayoutInflater adbInflater = this.getLayoutInflater();
         View checkboxLayout = adbInflater.inflate(R.layout.checkboxlayout, null);
-        LinearLayout my_layout = (LinearLayout)checkboxLayout.findViewById(R.id.single_layout);
+        LinearLayout my_layout = (LinearLayout) checkboxLayout.findViewById(R.id.single_layout);
         alertDialog.setView(checkboxLayout);
         final String[] selectedStrings = {""};
-        final ArrayList<CheckBox> mCheckBoxes = new ArrayList<CheckBox>();
-        final int[] selected_position = {-1};
-        for (int i = 0; i < options.size(); i++)
-        {
-            final TableRow row =new TableRow(this);
+
+        for (int i = 0; i < options.size(); i++) {
+            TableRow row = new TableRow(this);
             row.setId(i);
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             final CheckBox checkBox = new CheckBox(this);
@@ -217,12 +173,14 @@ public class FormRegisterActivity extends AppCompatActivity {
                                                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                                         if (isChecked) {
                                                             selectedStrings[0] = checkBox.getText().toString();
+
                                                             checkBox.setChecked(false);
 
                                                         }else{
                                                             selectedStrings[0]= checkBox.getText().toString();
                                                           //  checkBox.setChecked(false);
                                                         }                     }
+
                                                 }
             );
             /*checkBox.setOnClickListener(new View.OnClickListener(){
