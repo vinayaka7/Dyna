@@ -29,5 +29,6 @@ public interface AppConstants {
 
         String CHILD_LIST = "CHILD_LIST";
         String SECTION_NAME = "SECTION_NAME";
+        String CHILD_SECTION_NAME = "CHILD_SECTION_NAME";
     }
 }

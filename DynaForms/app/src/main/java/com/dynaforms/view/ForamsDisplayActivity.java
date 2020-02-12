@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import static com.dynaforms.utilities.AppConstants.DataExtraUtils.CHILD_LIST;
+import static com.dynaforms.utilities.AppConstants.DataExtraUtils.CHILD_SECTION_NAME;
 import static com.dynaforms.utilities.AppConstants.DataExtraUtils.SECTION_NAME;
 
 public class ForamsDisplayActivity extends AppCompatActivity {
@@ -103,6 +104,7 @@ public class ForamsDisplayActivity extends AppCompatActivity {
                 ArrayList<ChildList> childList = (ArrayList<ChildList>) section.getChildList().get(childPos).getChildList();
                 intent.putParcelableArrayListExtra(CHILD_LIST, childList);
                 intent.putExtra(SECTION_NAME, section.getName());
+                intent.putExtra(CHILD_SECTION_NAME, section.getChildList().get(childPos).getName());
                 startActivity(intent);
             } catch (Exception e) {
             }

@@ -49,7 +49,8 @@ public class FormRegisterActivity extends AppCompatActivity {
         if (intent != null) {
             childLists = intent.getParcelableArrayListExtra(AppConstants.DataExtraUtils.CHILD_LIST);
             TextView headerName = findViewById(R.id.header_view);
-            headerName.setText(intent.getStringExtra(AppConstants.DataExtraUtils.SECTION_NAME));
+            headerName.setText(intent.getStringExtra(AppConstants.DataExtraUtils.CHILD_SECTION_NAME));
+            getSupportActionBar().setTitle(intent.getStringExtra(AppConstants.DataExtraUtils.CHILD_SECTION_NAME));
         }
 
         if (childLists == null || childLists.isEmpty()) {
@@ -205,7 +206,7 @@ public class FormRegisterActivity extends AppCompatActivity {
             checkBox.setText(options.get(i));
             row.addView(checkBox);
             my_layout.addView(row);
-            
+
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                                                     @Override
