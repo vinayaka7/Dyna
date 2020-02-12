@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -45,6 +46,7 @@ public class FormRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_register);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         if (intent != null) {
             childLists = intent.getParcelableArrayListExtra(AppConstants.DataExtraUtils.CHILD_LIST);
@@ -196,9 +198,11 @@ public class FormRegisterActivity extends AppCompatActivity {
         LinearLayout my_layout = (LinearLayout)checkboxLayout.findViewById(R.id.single_layout);
         alertDialog.setView(checkboxLayout);
         final String[] selectedStrings = {""};
+        final ArrayList<CheckBox> mCheckBoxes = new ArrayList<CheckBox>();
+        final int[] selected_position = {-1};
         for (int i = 0; i < options.size(); i++)
         {
-            TableRow row =new TableRow(this);
+            final TableRow row =new TableRow(this);
             row.setId(i);
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             final CheckBox checkBox = new CheckBox(this);
@@ -212,22 +216,37 @@ public class FormRegisterActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                                         if (isChecked) {
-
-
                                                             selectedStrings[0] = checkBox.getText().toString();
-                                                            if (selectedStrings[0].contains(checkBox.getText().toString())){
-                                                                checkBox.setChecked(true);
+                                                            checkBox.setChecked(false);
 
-                                                            }else {
-                                                                checkBox.setChecked(false);
-                                                            }
-                                                            //checkBox.setChecked(true);
                                                         }else{
-                                                         //   checkBox.setChecked(false);
                                                             selectedStrings[0]= checkBox.getText().toString();
+                                                          //  checkBox.setChecked(false);
                                                         }                     }
                                                 }
             );
+            /*checkBox.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick (View view) {
+
+                    if (((CheckBox) view).isChecked())
+                    {
+                        for (int i = 0; i < mCheckBoxes.size(); i++) {
+                            if (mCheckBoxes.get(i) == view)
+                                selected_position[0] = i;
+                            else
+                                mCheckBoxes.get(i).setChecked(false);
+                        }
+
+                    }
+                    else
+                    {
+                        selected_position[0] =-1;
+                    }
+                }
+
+            });*/
         }
 
         // alertDialog.setMessage("Choose");
@@ -247,5 +266,15 @@ public class FormRegisterActivity extends AppCompatActivity {
             }
         });
         alertDialog.show();
+    }
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

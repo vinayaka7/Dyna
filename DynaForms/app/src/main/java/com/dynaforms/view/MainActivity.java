@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        getSupportActionBar().setTitle("DCS       Assign Pharmacy Tablet");
         ImageView imageView = findViewById(R.id.header_logo);
-        AppUtils.loadImageFromApi(imageView, R.drawable.syml_logo);
+        AppUtils.loadImageFromApi(imageView, R.drawable.resp_logo);
 
         ImageView descLogo = findViewById(R.id.desc_logo);
-        AppUtils.loadImageFromApi(descLogo, R.drawable.syml_logo);
+        AppUtils.loadImageFromApi(descLogo, R.drawable.gsk_logo);
 
         userSessionManager = new UserSessionManager(MainActivity.this);
         preferences = getSharedPreferences("USERLOGIN", Context.MODE_PRIVATE);

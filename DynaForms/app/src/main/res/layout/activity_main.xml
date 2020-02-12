@@ -14,27 +14,51 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/header_logo"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp" />
-
-            <ImageView
-                android:id="@+id/desc_logo"
-                android:layout_width="250dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center_horizontal" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="Please sign in"
+                android:text="Syml_DCS V1.0"
                 android:textColor="#000000"
+                android:textSize="22sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp">
+            <ImageView
+                android:layout_weight="1"
+                android:id="@+id/header_logo"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/resp_logo"
+                android:layout_margin="10dp" />
+
+            <ImageView
+                android:src="@drawable/gsk_logo"
+                android:id="@+id/desc_logo"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Assign a Username and Password to a pharmacy tablet"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="* indicates a required field"
+                android:textColor="#F06E6E"
                 android:textSize="18sp" />
 
             <LinearLayout
@@ -50,7 +74,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/et_border"
-                    android:hint="Username"
+                    android:hint="Username*"
+                    android:singleLine="true"
                     android:padding="20dp" />
 
                 <EditText
@@ -59,7 +84,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/et_border"
-                    android:hint="Password"
+                    android:hint="Password*"
+                    android:singleLine="true"
                     android:padding="20dp" />
 
                 <CheckBox
@@ -71,16 +97,41 @@
             </LinearLayout>
 
             <Button
+                android:layout_margin="20dp"
                 android:id="@+id/sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="#FFC107"
+                android:background="@color/colorPrimary"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:text="Sign in"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:gravity="center"
+                android:layout_gravity="center_vertical">
+                <ImageView
+
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/syml_logo"
+                    android:layout_margin="10dp" />
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:src="@drawable/gsk_logo"
+                    android:text="(C) Copyright 2020"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
