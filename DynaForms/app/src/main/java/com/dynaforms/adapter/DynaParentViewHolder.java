@@ -34,9 +34,4 @@ public class DynaParentViewHolder extends ParentViewHolder {
     public void bind(Section recipe) {
         mParentTextView.setText(recipe.getName());
     }
-
-    /*@Override
-    public boolean shouldItemViewClickToggleExpansion() {
-        return false;
-    }*/
 }

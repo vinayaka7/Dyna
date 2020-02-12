@@ -11,7 +11,8 @@ public interface AppConstants {
         DropDown(3),
         PlainText(4),
         MultiSelect(5),
-        SingleSelect(6);
+        SingleSelect(6),
+        group(7);
 
         private final int value;
 
